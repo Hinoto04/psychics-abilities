@@ -1,5 +1,5 @@
 group: $group
 name: $name
-version: $version
+version: 0.0.1
 main: $main
 authors: [ $author ]
