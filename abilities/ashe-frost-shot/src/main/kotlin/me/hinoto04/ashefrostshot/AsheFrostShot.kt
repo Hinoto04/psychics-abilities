@@ -52,8 +52,8 @@ class AsheFrostShotConcept : AbilityConcept() {
         )
         description = listOf(
             "스킬 사용 및 공격 시",
-            "${ChatColor.BLUE}${ChatColor.BOLD}<SlowSeconds>초${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}간 대상의 이동속도가 " +
-                    "${ChatColor.BLUE}${ChatColor.BOLD}<SlowLevels>%${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}느려집니다.",
+            "${ChatColor.BLUE}<SlowSeconds>초${ChatColor.GRAY}간 대상의 이동속도가 " +
+                    "${ChatColor.BLUE}<SlowLevels>%${ChatColor.GRAY}느려집니다.",
             " ",
             "또한, 애쉬는 화살이 공격력의 ${ChatColor.RED}<DamagePercent>%${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}의 ",
             "추가 피해를 입힙니다."
