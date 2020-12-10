@@ -25,23 +25,21 @@ class Status : ActiveAbility<MyAbilityConcept>() {
 }
 
 class MyAbilityConcept : AbilityConcept() {
+
+    private val wandItem: ItemStack = ItemStack(Material.WRITTEN_BOOK).apply {
+        val meta = itemMeta
+        meta.setDisplayName("${ChatColor.BLUE}${ChatColor.BOLD}스테이터스")
+        meta.isPsychicbound = true
+        itemMeta = meta
+    }
+
     init {
         type = AbilityType.ACTIVE
         displayName = "스테이터스"
-        cooldownTicks = 20
-        wand = ItemStack(Material.PAPER).apply {
-            val meta = itemMeta
-            meta.setDisplayName("${ChatColor.BLUE}${ChatColor.BOLD}스테이터스")
-            meta.isPsychicbound = true
-            itemMeta = meta
-        }
+        cooldownTicks = 1 * 20
+        wand = wandItem
         supplyItems = listOf(
-            ItemStack(Material.PAPER).apply {
-                val meta = itemMeta
-                meta.setDisplayName("${ChatColor.BLUE}${ChatColor.BOLD}스테이터스")
-                meta.isPsychicbound = true
-                itemMeta = meta
-            }
+            wandItem
         )
         description = listOf(
             "자신의 공격력과 방어력을",
