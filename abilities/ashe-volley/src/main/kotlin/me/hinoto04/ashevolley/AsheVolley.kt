@@ -38,7 +38,7 @@ class AsheVolleyConcept : AbilityConcept() {
 
     init {
         displayName = "일제 사격"
-        cooldownTicks = 180
+        cooldownTicks = 9 * 20
         wand = wandItem
         cost = 70.0
         damage = Damage(DamageType.RANGED, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to 1.5))
