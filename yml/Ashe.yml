@@ -1,0 +1,9 @@
+abilities:
+  P - Frost Shot:
+    ability: .ashe-frost-shot
+  W - Volley:
+    ability: .ahse-volley
+  E - Hawkshot:
+    ability: .ashe-hawkshot
+  G - Status:
+    ability: .status
