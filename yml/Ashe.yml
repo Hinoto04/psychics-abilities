@@ -1,9 +1,13 @@
 abilities:
   P - Frost Shot:
     ability: .ashe-frost-shot
+  Q - Ranger's Focus:
+    ability: .ashe-ranger's-focus
   W - Volley:
     ability: .ahse-volley
   E - Hawkshot:
     ability: .ashe-hawkshot
+  R - Enchanted Crystal Arrow:
+    ability: .ashe-enchanted-crystal-arrow
   G - Status:
     ability: .status
