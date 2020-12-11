@@ -120,8 +120,9 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
 
             val radius = concept.radius
             val box = BoundingBox.of(movement.from, radius, radius, radius)
+            val filter = TargetFilter(esper.player)
 
-            for(entity in movement.from.world.getNearbyEntities(box)) {
+            for(entity in movement.from.world.getNearbyEntities(box, filter)) {
                 if(entity is LivingEntity) {
                     entity.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, concept.glowDurationTicks, 0, false, false,true))
                 }
@@ -133,6 +134,7 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
                 val from = trail.from
                 val world = from.world
                 val length = velocity.normalizeAndLength()
+                val filter = TargetFilter(esper.player)
 
                 world.rayTrace(
                     from,
@@ -141,7 +143,7 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
                     FluidCollisionMode.NEVER,
                     true,
                     concept.explosionRaySize,
-                    TargetFilter(esper.player)
+                    filter
                 )?.let { result ->
                     remove()
 
@@ -155,7 +157,7 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
                     val radius = concept.radius
                     val box = BoundingBox.of(hitPosition, radius, radius, radius)
 
-                    for(entity in world.getNearbyEntities(box)) {
+                    for(entity in world.getNearbyEntities(box, filter)) {
                         if(entity is LivingEntity) {
                             entity.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, concept.explosionDurationTicks, 0, false, false,true))
                         }
