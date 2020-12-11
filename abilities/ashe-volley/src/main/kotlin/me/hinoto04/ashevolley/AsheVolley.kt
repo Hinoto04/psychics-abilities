@@ -16,6 +16,7 @@ import com.github.noonmaru.tap.math.toRadians
 import org.bukkit.ChatColor
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -74,6 +75,7 @@ class AsheVolley : ActiveAbility<AsheVolleyConcept>() {
                 }.multiply(2)
                 arrow.customName = "AsheVolley"
             }
+            player.world.playSound(eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.5F, 0.5F)
         }
     }
 
