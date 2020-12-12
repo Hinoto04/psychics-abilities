@@ -12,6 +12,7 @@ import com.github.noonmaru.psychics.tooltip.TooltipBuilder
 import com.github.noonmaru.tap.config.Config
 import com.github.noonmaru.tap.event.EntityProvider
 import com.github.noonmaru.tap.event.TargetEntity
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -23,9 +24,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityShootBowEvent
-import org.bukkit.event.player.PlayerEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.util.Vector
 
 class AsheRangersFocusConcept : AbilityConcept() {
 
@@ -43,10 +44,10 @@ class AsheRangersFocusConcept : AbilityConcept() {
     var onesDamage: Double = 0.3
 
     @Config
-    var arrowCount: Int = 5
+    var arrowCount: Int = 3
 
     @Config
-    var arrowDelay: Int = 2
+    var arrowDelay: Int = 1
 
     init {
         displayName = "궁사의 집중"
@@ -57,7 +58,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
         description = listOf(
             "${ChatColor.WHITE}<durationSeconds>초${ChatColor.GRAY} 동안 쏘는 화살이 다발 화살로 변경됩니다.",
             "다발 화살은 ${ChatColor.WHITE}<arrowCounts>연발${ChatColor.GRAY}로 발사되며,",
-            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.WHITE}의 원거리 피해를 입힙니다."
+            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의 추가 원거리 피해를 입힙니다."
         )
     }
 
@@ -76,11 +77,10 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
         psychic.registerEvents(MyListener())
     }
 
-    inner class MyListener : Listener {
+    var isOn: Boolean = false
+    var velocity: Vector? = null
 
-        private var isOn: Boolean = false
-        private val player = esper.player
-        private var velocity = player.velocity
+    inner class MyListener : Listener {
 
         @EventHandler
         fun onPlayerInteract(event: PlayerInteractEvent) {
@@ -94,6 +94,8 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
 
                     psychic.consumeMana(concept.cost)
                     cooldownTicks = concept.cooldownTicks
+                } else {
+                    player.sendActionBar(result.getMessage(this@AsheRangersFocus))
                 }
             }
         }
@@ -101,9 +103,10 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
         @EventHandler
         fun onShootArrow(event: EntityShootBowEvent) {
             if(isOn) {
-                velocity = event.projectile.velocity
-                event.projectile.customName = "AsheRangersFocus"
-                for(i in 1..concept.arrowCount) {
+                val projectile = event.projectile
+                projectile.customName = "AsheRangersFocus"
+                velocity = projectile.velocity
+                for(i in 1 until concept.arrowCount) {
                     psychic.runTask(ShootArrow(), (i * concept.arrowDelay).toLong())
                 }
             }
@@ -118,23 +121,26 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
                 if(arrow.customName.toString() == "AsheRangersFocus") {
                     val damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to concept.onesDamage))
                     hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                    Bukkit.broadcastMessage(hitE.health.toString())
+                    event.isCancelled = true
+                    arrow.remove()
                 }
             }
         }
+    }
 
-        inner class DurationEnd : Runnable {
-            override fun run() {
-                isOn = false
-                player.sendActionBar("${ChatColor.AQUA}${ChatColor.BOLD}궁사의 집중 ${ChatColor.WHITE}지속시간 종료")
-            }
+    inner class DurationEnd : Runnable {
+        override fun run() {
+            isOn = false
+            esper.player.sendActionBar("${ChatColor.AQUA}${ChatColor.BOLD}궁사의 집중 ${ChatColor.WHITE}지속시간 종료")
         }
+    }
 
-        inner class ShootArrow : Runnable {
-            override fun run() {
-                val projectile = player.launchProjectile(Arrow::class.java, velocity)
-                player.world.playSound(player.eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F)
-                projectile.customName = "AsheRangersFocus"
-            }
+    inner class ShootArrow : Runnable {
+        override fun run() {
+            val projectile = esper.player.launchProjectile(Arrow::class.java, velocity)
+            esper.player.world.playSound(esper.player.eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F)
+            projectile.customName = "AsheRangersFocus"
         }
     }
 
