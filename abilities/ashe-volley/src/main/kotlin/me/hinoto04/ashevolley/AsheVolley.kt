@@ -7,9 +7,7 @@ import com.github.noonmaru.psychics.attribute.EsperAttribute
 import com.github.noonmaru.psychics.attribute.EsperStatistic
 import com.github.noonmaru.psychics.damage.Damage
 import com.github.noonmaru.psychics.damage.DamageType
-import com.github.noonmaru.psychics.damage.psychicDamage
 import com.github.noonmaru.psychics.item.isPsychicbound
-import com.github.noonmaru.tap.config.Config
 import com.github.noonmaru.tap.event.EntityProvider
 import com.github.noonmaru.tap.event.TargetEntity
 import com.github.noonmaru.tap.math.toRadians
@@ -23,8 +21,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.potion.PotionEffect
-import org.bukkit.potion.PotionEffectType
 import kotlin.math.cos
 import kotlin.math.sin
 
