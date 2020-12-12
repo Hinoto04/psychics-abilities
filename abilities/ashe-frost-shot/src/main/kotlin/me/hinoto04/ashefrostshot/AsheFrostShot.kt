@@ -28,6 +28,16 @@ import org.bukkit.potion.PotionEffectType
 
 class AsheFrostShotConcept : AbilityConcept() {
 
+    private val wandItem = ItemStack(Material.BOW).apply {
+        val meta = itemMeta
+        meta.setDisplayName("${ChatColor.AQUA}${ChatColor.BOLD}애쉬의 활")
+        meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false)
+        meta.isUnbreakable = true
+        meta.isPsychicbound = true
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
+        itemMeta = meta
+    }
+
     @Config
     var slowValue: Int = 2
 
@@ -46,6 +56,10 @@ class AsheFrostShotConcept : AbilityConcept() {
             " ",
             "또한, 애쉬는 화살이 공격력의 ${ChatColor.RED}<DamagePercent>%${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}의 ",
             "추가 원거리 피해를 입힙니다."
+        )
+        wand = wandItem
+        supplyItems = listOf(
+            wandItem
         )
     }
 
