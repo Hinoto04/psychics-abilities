@@ -86,6 +86,9 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
             velocity = eyeLocation.direction.multiply(concept.launchSpeed)
         }
         psychic.launchProjectile(eyeLocation, projectile)
+        eyeLocation.world.playSound(eyeLocation,Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0F, 1.5F)
+
+        cooldownTicks = concept.cooldownTicks
     }
 
     inner class Hawk(private val location: Location) {
