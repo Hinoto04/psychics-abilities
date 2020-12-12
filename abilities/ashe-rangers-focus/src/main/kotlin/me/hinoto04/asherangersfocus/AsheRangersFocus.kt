@@ -37,7 +37,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
     }
 
     @Config
-    var skillDurationTicks: Long = 4 * 20
+    var skillDurationTicks: Int = 4 * 20
 
     @Config
     var onesDamage: Double = 0.3
@@ -90,7 +90,7 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
                 if(result == TestResult.SUCCESS) {
                     isOn = true
 
-                    psychic.runTask(DurationEnd(), concept.skillDurationTicks)
+                    psychic.runTask(DurationEnd(), concept.skillDurationTicks.toLong())
 
                     psychic.consumeMana(concept.cost)
                     cooldownTicks = concept.cooldownTicks
