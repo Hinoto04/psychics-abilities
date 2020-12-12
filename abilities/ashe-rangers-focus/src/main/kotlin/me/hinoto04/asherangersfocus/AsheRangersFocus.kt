@@ -122,7 +122,6 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
                 if(arrow.customName.toString() == "AsheRangersFocus") {
                     val damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to concept.onesDamage))
                     hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
-                    Bukkit.broadcastMessage(hitE.health.toString())
                     event.isCancelled = true
                     arrow.remove()
                 }
