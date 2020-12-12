@@ -55,7 +55,8 @@ class AsheRangersFocusConcept : AbilityConcept() {
         description = listOf(
             "${ChatColor.WHITE}<durationSeconds>초${ChatColor.GRAY} 동안 쏘는 화살이 다발 화살로 변경됩니다.",
             "다발 화살은 ${ChatColor.WHITE}<arrowCounts>연발${ChatColor.GRAY}로 발사되며,",
-            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의 추가 원거리 피해를 입힙니다."
+            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의",
+            "추가 원거리 피해를 입힙니다."
         )
     }
 
@@ -63,7 +64,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
         tooltip.addTemplates(
             "durationSeconds" to skillDurationTicks / 20,
             "arrowCounts" to arrowCount,
-            "addDMGPercent" to onesDamage
+            "addDMGPercent" to onesDamage * 100
         )
     }
 }
