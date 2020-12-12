@@ -2,6 +2,7 @@ package me.hinoto04.asherangersfocus
 
 import com.github.noonmaru.psychics.Ability
 import com.github.noonmaru.psychics.AbilityConcept
+import com.github.noonmaru.psychics.AbilityType
 import com.github.noonmaru.psychics.TestResult
 import com.github.noonmaru.psychics.attribute.EsperAttribute
 import com.github.noonmaru.psychics.attribute.EsperStatistic
@@ -49,6 +50,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
     init {
         displayName = "궁사의 집중"
         cooldownTicks = 6 * 20
+        type = AbilityType.ACTIVE
         cost = 50.0
         wand = wandItem
         supplyItems = listOf(wandItem)
