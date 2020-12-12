@@ -50,7 +50,7 @@ class AsheHawkShotConcept : AbilityConcept() {
 
     init {
         displayName = "매 날리기"
-        cooldownTicks = 60 * 20
+        cooldownTicks = 50 * 20
         wand = wandItem
         supplyItems = listOf(
             wandItem
