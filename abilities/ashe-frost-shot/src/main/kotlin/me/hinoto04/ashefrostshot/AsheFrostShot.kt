@@ -39,17 +39,6 @@ class AsheFrostShotConcept : AbilityConcept() {
 
     init {
         displayName = "서리 화살"
-        supplyItems = listOf(
-            ItemStack(Material.BOW).apply {
-                val meta = itemMeta
-                meta.setDisplayName("${ChatColor.AQUA}${ChatColor.BOLD}애쉬의 활")
-                meta.addEnchant(Enchantment.ARROW_INFINITE, 1, false)
-                meta.isUnbreakable = true
-                meta.isPsychicbound = true
-                meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE)
-                itemMeta = meta
-            }
-        )
         description = listOf(
             "스킬 사용 및 공격 시",
             "${ChatColor.WHITE}<SlowSeconds>초${ChatColor.GRAY}간 대상의 이동속도가 " +
