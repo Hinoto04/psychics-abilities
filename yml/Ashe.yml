@@ -11,3 +11,10 @@ abilities:
     ability: .ashe-enchanted-crystal-arrow
   G - Status:
     ability: .status
+display-name: Ashe
+health-bonus: 0.0
+health-regen-per-tick: 0.0
+mana: 500.0
+mana-regen-per-tick: 0.1
+mana-color: BLUE
+description: []
