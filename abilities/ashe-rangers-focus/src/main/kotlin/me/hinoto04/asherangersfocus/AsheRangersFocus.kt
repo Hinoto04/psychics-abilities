@@ -41,7 +41,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
     var skillDurationTicks: Int = 4 * 20
 
     @Config
-    var onesDamage: Double = 0.3
+    var onesDamage: Double = 0.4
 
     @Config
     var arrowCount: Int = 3
