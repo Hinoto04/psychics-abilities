@@ -2,16 +2,24 @@ package me.hinoto04.asherangersfocus
 
 import com.github.noonmaru.psychics.ActiveAbility
 import com.github.noonmaru.psychics.AbilityConcept
+import com.github.noonmaru.psychics.attribute.EsperAttribute
 import com.github.noonmaru.psychics.attribute.EsperStatistic
+import com.github.noonmaru.psychics.damage.Damage
+import com.github.noonmaru.psychics.damage.DamageType
 import com.github.noonmaru.psychics.item.isPsychicbound
 import com.github.noonmaru.psychics.tooltip.TooltipBuilder
 import com.github.noonmaru.tap.config.Config
+import com.github.noonmaru.tap.event.EntityProvider
+import com.github.noonmaru.tap.event.TargetEntity
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Arrow
+import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityShootBowEvent
 import org.bukkit.event.player.PlayerEvent
 import org.bukkit.inventory.ItemStack
@@ -63,7 +71,7 @@ class AsheRangersFocus : ActiveAbility<AsheRangersFocusConcept>() {
 
     private var isOn = false
     private val player = esper.player
-    private var velocity = esper.player.velocity
+    private var velocity = player.velocity
 
     override fun onCast(event: PlayerEvent, action: WandAction, target: Any?) {
 
@@ -91,10 +99,24 @@ class AsheRangersFocus : ActiveAbility<AsheRangersFocusConcept>() {
                 }
             }
         }
+
+        @EventHandler
+        @TargetEntity(TargetProvider::class)
+        fun onHitArrow(event: EntityDamageByEntityEvent) {
+            val arrow: Entity = event.damager
+            val hitE: Entity = event.entity
+            if(hitE is LivingEntity){
+                if(arrow.customName.toString() == "AsheRangersFocus") {
+                    val damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to concept.onesDamage))
+                    hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                }
+            }
+        }
     }
 
     inner class DurationEnd : Runnable {
         override fun run() {
+            isOn = false
             player.sendActionBar("${ChatColor.AQUA}${ChatColor.BOLD}궁사의 집중 ${ChatColor.WHITE}지속시간 종료")
         }
     }
@@ -104,6 +126,18 @@ class AsheRangersFocus : ActiveAbility<AsheRangersFocusConcept>() {
             val projectile = player.launchProjectile(Arrow::class.java, velocity)
             player.world.playSound(player.eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F)
             projectile.customName = "AsheRangersFocus"
+        }
+    }
+
+    class TargetProvider : EntityProvider<EntityDamageByEntityEvent> {
+        override fun getFrom(event: EntityDamageByEntityEvent): Entity? {
+            if(event.damager is Arrow){
+                val arrow: Arrow = event.damager as Arrow
+                if(arrow.shooter is Entity) {
+                    return arrow.shooter as Entity
+                }
+            }
+            return event.damager
         }
     }
 }
