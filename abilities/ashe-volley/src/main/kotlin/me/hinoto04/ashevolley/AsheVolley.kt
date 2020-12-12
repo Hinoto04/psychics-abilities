@@ -64,12 +64,13 @@ class AsheVolley : ActiveAbility<AsheVolleyConcept>() {
             var angle: Double = eyeLocation.yaw - 40.0
             for(i in 1..7) {
                 angle += 10.0
-                val arrow: Projectile = player.launchProjectile(Arrow::class.java)
+                val arrow: Arrow = player.launchProjectile(Arrow::class.java)
                 arrow.velocity = player.eyeLocation.direction.apply {
                     x = -sin(angle.toRadians())
                     z = cos(angle.toRadians())
                 }.multiply(2)
                 arrow.customName = "AsheVolley"
+                arrow.pickupStatus = AbstractArrow.PickupStatus.CREATIVE_ONLY
             }
             player.world.playSound(eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.5F, 0.5F)
         }

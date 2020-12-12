@@ -16,10 +16,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.Sound
-import org.bukkit.entity.Arrow
-import org.bukkit.entity.Entity
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
+import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -103,8 +100,9 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
         @EventHandler
         fun onShootArrow(event: EntityShootBowEvent) {
             if(isOn) {
-                val projectile = event.projectile
+                val projectile = event.projectile as Arrow
                 projectile.customName = "AsheRangersFocus"
+                projectile.pickupStatus = AbstractArrow.PickupStatus.CREATIVE_ONLY
                 velocity = projectile.velocity
                 for(i in 1 until concept.arrowCount) {
                     psychic.runTask(ShootArrow(), (i * concept.arrowDelay).toLong())
@@ -141,6 +139,7 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
             val projectile = esper.player.launchProjectile(Arrow::class.java, velocity)
             esper.player.world.playSound(esper.player.eyeLocation, Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F)
             projectile.customName = "AsheRangersFocus"
+            projectile.pickupStatus = AbstractArrow.PickupStatus.CREATIVE_ONLY
         }
     }
 
