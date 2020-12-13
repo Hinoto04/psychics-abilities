@@ -91,7 +91,7 @@ class AsheFrostShot : Ability<AsheFrostShotConcept>() {
             val hitE: Entity = event.entity
             if(hitE is LivingEntity){
                 if("Ashe" in arrow.customName.toString()) {
-                    hitE.addPotionEffect(PotionEffect(PotionEffectType.SLOW,concept.slowTicks, concept.slowValue))
+                    hitE.addPotionEffect(PotionEffect(PotionEffectType.SLOW,concept.slowTicks, concept.slowValue-1))
                 }
                 if(arrow.customName.toString() == "AsheFrostShot") {
                     val damage = Damage(DamageType.RANGED, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to concept.addDamage))
