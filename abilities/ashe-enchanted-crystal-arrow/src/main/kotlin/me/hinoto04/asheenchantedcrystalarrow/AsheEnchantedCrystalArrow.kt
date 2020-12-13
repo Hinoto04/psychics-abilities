@@ -1,6 +1,6 @@
 package me.hinoto04.asheenchantedcrystalarrow
 
-import com.destroystokyo.paper.ParticleBuilder
+
 import com.github.noonmaru.psychics.ActiveAbility
 import com.github.noonmaru.psychics.AbilityConcept
 import com.github.noonmaru.psychics.PsychicProjectile
@@ -16,7 +16,6 @@ import com.github.noonmaru.tap.effect.playFirework
 import com.github.noonmaru.tap.fake.FakeEntity
 import com.github.noonmaru.tap.fake.Movement
 import com.github.noonmaru.tap.fake.Trail
-import com.github.noonmaru.tap.fake.invisible
 import com.github.noonmaru.tap.math.normalizeAndLength
 import com.github.noonmaru.tap.math.toRadians
 import com.github.noonmaru.tap.trail.trail
@@ -24,7 +23,6 @@ import org.bukkit.*
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
@@ -124,7 +122,7 @@ class AsheEnchantedCrystalArrow : ActiveAbility<AsheEnchantedCrystalArrowConcept
 
         private val entity: FakeEntity = psychic.spawnFakeEntity(location, ArmorStand::class.java).apply {
             updateMetadata<ArmorStand> {
-                invisible = true
+                isVisible = false
                 isMarker = true
                 headPose = EulerAngle(30.0.toRadians(), 40.0.toRadians(), 45.0.toRadians())
             }
@@ -224,9 +222,16 @@ class AsheEnchantedCrystalArrow : ActiveAbility<AsheEnchantedCrystalArrowConcept
                     w.spawnParticle(
                         Particle.CRIT_MAGIC,
                         x, y, z,
-                        1,
+                        5,
                         0.1, 0.1, 0.1,
                         0.25, null, true
+                    )
+                    w.spawnParticle(
+                        Particle.REDSTONE,
+                        x, y, z,
+                        3,
+                        1.0, 1.0,1.0,
+                        0.25, Particle.DustOptions(Color.fromRGB(0, 238, 245), 1F), true
                     )
                 }
             }

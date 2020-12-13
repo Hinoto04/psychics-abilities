@@ -47,6 +47,9 @@ class AsheRangersFocusConcept : AbilityConcept() {
     @Config
     var arrowDelay: Int = 1
 
+    @Config
+    var arrowVelocityManipulation: Double = 1.5
+
     init {
         displayName = "궁사의 집중"
         cooldownTicks = 6 * 20
@@ -57,7 +60,10 @@ class AsheRangersFocusConcept : AbilityConcept() {
         description = listOf(
             "${ChatColor.WHITE}<durationSeconds>초${ChatColor.GRAY} 동안 쏘는 화살이 다발 화살로 변경됩니다.",
             "다발 화살은 ${ChatColor.WHITE}<arrowCounts>연발${ChatColor.GRAY}로 발사되며,",
-            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의 원거리 피해를 입힙니다."
+            "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의 원거리 피해를 입힙니다.",
+            " ",
+            "또한 집중하는 동안 화살은 ${ChatColor.WHITE}<arrowVelocityPercent>%",
+            "${ChatColor.GRAY}더 멀리 날아갑니다."
         )
     }
 
@@ -65,7 +71,8 @@ class AsheRangersFocusConcept : AbilityConcept() {
         tooltip.addTemplates(
             "durationSeconds" to skillDurationTicks / 20,
             "arrowCounts" to arrowCount,
-            "addDMGPercent" to onesDamage * 100
+            "addDMGPercent" to onesDamage * 100,
+            "arrowVelocityPercent" to arrowVelocityManipulation * 100
         )
     }
 }
@@ -105,8 +112,8 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
                 val projectile = event.projectile as Arrow
                 projectile.customName = "AsheRangersFocus"
                 projectile.pickupStatus = AbstractArrow.PickupStatus.CREATIVE_ONLY
-                velocity = projectile.velocity.multiply(2)
-                projectile.velocity = projectile.velocity.multiply(2)
+                velocity = projectile.velocity.multiply(concept.arrowVelocityManipulation)
+                projectile.velocity = projectile.velocity.multiply(concept.arrowVelocityManipulation)
                 for(i in 1 until concept.arrowCount) {
                     psychic.runTask(ShootArrow(), (i * concept.arrowDelay).toLong())
                 }

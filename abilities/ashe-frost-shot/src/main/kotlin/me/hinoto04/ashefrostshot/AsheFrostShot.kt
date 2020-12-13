@@ -54,7 +54,7 @@ class AsheFrostShotConcept : AbilityConcept() {
             "${ChatColor.WHITE}<SlowSeconds>초${ChatColor.GRAY}간 대상의 이동속도가 " +
                     "${ChatColor.BLUE}<SlowLevels>%${ChatColor.GRAY}느려집니다.",
             " ",
-            "또한, 애쉬는 화살이 공격력의 ${ChatColor.RED}<DamagePercent>%${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}의 ",
+            "또한, 화살이 공격력의 ${ChatColor.RED}<DamagePercent>%${ChatColor.STRIKETHROUGH}${ChatColor.GRAY}의 ",
             "추가 원거리 피해를 입힙니다."
         )
         wand = wandItem
