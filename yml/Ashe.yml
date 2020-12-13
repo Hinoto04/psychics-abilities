@@ -7,6 +7,8 @@ abilities:
     ability: .ashe-volley
   E - Hawkshot:
     ability: .ashe-hawkshot
+  R - Enchanted Crystal Arrow:
+    ability: .ashe-enchanted-crystal-arrow
   G - Status:
     ability: .status
 display-name: Ashe
