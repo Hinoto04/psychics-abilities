@@ -63,7 +63,7 @@ class AsheHawkShotConcept : AbilityConcept() {
             "매는 부딫히면 그 자리에서 폭발하며,",
             "${ChatColor.YELLOW}발광 ${ChatColor.GRAY}효과를 ${ChatColor.WHITE}<explodeSeconds>초${ChatColor.GRAY} 동안 부여합니다.",
             " ",
-            "매는 최대 ${ChatColor.WHITE}\${common.range}m${ChatColor.GRAY}까지 날아가며",
+            "매는 최대 ${ChatColor.WHITE}\${common.range}m${ChatColor.GRAY}까지 날아가며,",
             "그 이상 날아가면 매는 사라집니다."
         )
     }
