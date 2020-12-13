@@ -92,7 +92,7 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
 
     inner class Hawk(private val location: Location) {
         private val entity: FakeEntity =
-            psychic.spawnFakeEntity(location.apply { y -= 0.81 }, ArmorStand::class.java).apply {
+            psychic.spawnFakeEntity(location, ArmorStand::class.java).apply {
                 updateMetadata<ArmorStand> {
                     rightArmPose = EulerAngle(0.0, Math.PI / 2.0, Math.PI)
                     invisible = true
@@ -105,7 +105,7 @@ class AsheHawkshot : ActiveAbility<AsheHawkShotConcept>() {
             }
 
         fun update(newloc: Location = location) {
-            entity.moveTo(newloc)
+            entity.moveTo(newloc.clone().apply { y -= 0.81 })
         }
 
         fun remove() {
