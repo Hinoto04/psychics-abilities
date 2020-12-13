@@ -69,6 +69,7 @@ class AsheEnchantedCrystalArrowConcept : AbilityConcept() {
     init {
         displayName = "마법의 수정화살"
         cooldownTicks = 80 * 20
+        castingTicks = 5
         cost = 100.0
         range = 256.0
         damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to 5.0))
