@@ -215,7 +215,7 @@ class AsheEnchantedCrystalArrow : ActiveAbility<AsheEnchantedCrystalArrowConcept
                         val damage = Damage(DamageType.BLAST, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to concept.splashDamage))
                         if(entity is LivingEntity) {
                             entity.psychicDamage(damage, esper.player.eyeLocation, 0.0)
-                            entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, concept.splashSlowTicks, concept.splashSlowValue, false, false, true))
+                            entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, concept.splashSlowTicks, concept.splashSlowValue-1, false, false, true))
                         }
                     }
                 }
