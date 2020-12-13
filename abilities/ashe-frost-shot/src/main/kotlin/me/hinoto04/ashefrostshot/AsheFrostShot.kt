@@ -50,7 +50,7 @@ class AsheFrostShotConcept : AbilityConcept() {
     init {
         displayName = "서리 화살"
         description = listOf(
-            "스킬 사용 및 공격 시",
+            "화살이 적중한 경우",
             "${ChatColor.WHITE}<SlowSeconds>초${ChatColor.GRAY}간 대상의 이동속도가 " +
                     "${ChatColor.BLUE}<SlowLevels>%${ChatColor.GRAY}느려집니다.",
             " ",
