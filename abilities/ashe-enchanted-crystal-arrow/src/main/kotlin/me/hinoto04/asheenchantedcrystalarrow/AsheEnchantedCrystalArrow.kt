@@ -58,7 +58,7 @@ class AsheEnchantedCrystalArrowConcept : AbilityConcept() {
     var splashSlowValue: Int = 4
 
     @Config
-    var splashSlowTicks: Long = 3 * 20
+    var splashSlowTicks: Int = 3 * 20
 
     @Config
     var glowRadius: Double = 5.0
@@ -215,6 +215,7 @@ class AsheEnchantedCrystalArrow : ActiveAbility<AsheEnchantedCrystalArrowConcept
                         val damage = Damage(DamageType.BLAST, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to concept.splashDamage))
                         if(entity is LivingEntity) {
                             entity.psychicDamage(damage, esper.player.eyeLocation, 0.0)
+                            entity.addPotionEffect(PotionEffect(PotionEffectType.SLOW, concept.splashSlowTicks, concept.splashSlowValue, false, false, true))
                         }
                     }
                 }
