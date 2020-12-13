@@ -62,7 +62,7 @@ class AsheRangersFocusConcept : AbilityConcept() {
             "다발 화살은 ${ChatColor.WHITE}<arrowCounts>연발${ChatColor.GRAY}로 발사되며,",
             "각각 공격력의 ${ChatColor.RED}<addDMGPercent>%${ChatColor.GRAY}의 원거리 피해를 입힙니다.",
             " ",
-            "또한 집중하는 동안 화살은 ${ChatColor.WHITE}<arrowVelocityPercent>%",
+            "또한, 집중하는 동안 화살은 ${ChatColor.WHITE}<arrowVelocityPercent>%",
             "${ChatColor.GRAY}더 멀리 날아갑니다."
         )
     }
