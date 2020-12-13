@@ -105,7 +105,8 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
                 val projectile = event.projectile as Arrow
                 projectile.customName = "AsheRangersFocus"
                 projectile.pickupStatus = AbstractArrow.PickupStatus.CREATIVE_ONLY
-                velocity = projectile.velocity
+                velocity = projectile.velocity.multiply(2)
+                projectile.velocity = projectile.velocity.multiply(2)
                 for(i in 1 until concept.arrowCount) {
                     psychic.runTask(ShootArrow(), (i * concept.arrowDelay).toLong())
                 }
