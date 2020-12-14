@@ -94,8 +94,12 @@ class AsheFrostShot : Ability<AsheFrostShotConcept>() {
                     hitE.addPotionEffect(PotionEffect(PotionEffectType.SLOW,concept.slowTicks, concept.slowValue-1))
                 }
                 if(arrow.customName.toString() == "AsheFrostShot") {
-                    val damage = Damage(DamageType.RANGED, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to concept.addDamage))
-                    hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                    try {
+                        val damage = Damage(DamageType.RANGED, EsperStatistic.Companion.of(EsperAttribute.ATTACK_DAMAGE to concept.addDamage))
+                        hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                    } catch(e: IllegalArgumentException) {
+                        arrow.remove()
+                    }
                 }
             }
         }
