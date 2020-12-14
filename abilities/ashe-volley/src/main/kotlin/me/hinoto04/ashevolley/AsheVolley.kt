@@ -21,6 +21,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerEvent
 import org.bukkit.inventory.ItemStack
+import java.lang.IllegalArgumentException
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -87,10 +88,14 @@ class AsheVolley : ActiveAbility<AsheVolleyConcept>() {
             val arrow: Entity = event.damager
             val hitE: Entity = event.entity
             if(arrow.customName.toString() == "AsheVolley") {
-                val damage = requireNotNull(concept.damage)
-                if (hitE is LivingEntity) {
-                    hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
-                    event.isCancelled = true
+                try {
+                    val damage = requireNotNull(concept.damage)
+                    if (hitE is LivingEntity) {
+                        hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                        event.isCancelled = true
+                        arrow.remove()
+                    }
+                } catch (e: IllegalArgumentException) {
                     arrow.remove()
                 }
             }
