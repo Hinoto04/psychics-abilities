@@ -127,10 +127,14 @@ class AsheRangersFocus : Ability<AsheRangersFocusConcept>() {
             val hitE: Entity = event.entity
             if(hitE is LivingEntity){
                 if(arrow.customName.toString() == "AsheRangersFocus") {
-                    val damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to concept.onesDamage))
-                    hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
-                    event.isCancelled = true
-                    arrow.remove()
+                    try {
+                        val damage = Damage(DamageType.RANGED, EsperStatistic.of(EsperAttribute.ATTACK_DAMAGE to concept.onesDamage))
+                        hitE.psychicDamage(damage, esper.player.eyeLocation, 1.0)
+                        event.isCancelled = true
+                        arrow.remove()
+                    } catch(e: IllegalArgumentException) {
+                        arrow.remove()
+                    }
                 }
             }
         }
